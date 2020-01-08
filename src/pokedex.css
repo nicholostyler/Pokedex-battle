@@ -1,0 +1,9 @@
+
+.hand {
+    display: flex;
+    direction: rtl;
+    flex-direction: row;
+    justify-content: space-evenly;
+    overflow: scroll;
+}
+
