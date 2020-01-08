@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Pokedex from './Pokedex';
-import Pokecard from './Pokecard';
 
 const NAME_API =
     'https://pokeapi.co/api/v2/pokemon/';
@@ -13,24 +12,18 @@ class Pokegame extends Component {
             hand1: [],
             hand2: []
         }
-    }
 
-    componentWillMount() {
-        console.log('before async');
-        let hand1 = this.buildHand();
-        let hand2 = this.buildHand();
+        this.buildHand();
     }
 
     render() {
-        if (this.state.loading == false){
-            let winner = this.determineWinner();
+        if (this.state.loading === false){
+            let exp = this.determineWinner();
+            
             return (
                 <div className="Pokegame">
-                    <h1>Hand One</h1>
-                    <Pokedex hand={this.state.hand1}/>
-                    <h1>Hand 2</h1>
-                    <Pokedex hand={this.state.hand2}/>
-                    <h3>Winner {winner}</h3>
+                    <Pokedex hand={this.state.hand1} winner={exp.sum > exp.sum2} exp={exp.sum}/>
+                    <Pokedex hand={this.state.hand2} winner={exp.sum < exp.sum2} exp={exp.sum2}/>
                 </div>
         )
         } else {
@@ -54,10 +47,7 @@ class Pokegame extends Component {
         console.log("sum 1: " + sum);
         console.log("sum2: " + sum2);
 
-        if (sum > sum2)
-            return "Hand1 Won!";
-        else 
-            return "Hand2 Won!";
+        return({sum, sum2});
     }
 
     randomID(){
